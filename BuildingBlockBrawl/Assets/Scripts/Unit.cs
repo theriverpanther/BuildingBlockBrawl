@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public string name;
+    public string charName;
     [SerializeField] private float health;
     [SerializeField] private float damage;
 
