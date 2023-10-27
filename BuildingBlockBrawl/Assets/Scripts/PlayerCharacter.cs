@@ -15,7 +15,7 @@ public class PlayerCharacter : Unit
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("TEST");
-        //agent.SetDestination(enemy.transform.position);
+        Debug.Log("TEST");
+        agent.SetDestination(enemy.transform.position);
     }
 }

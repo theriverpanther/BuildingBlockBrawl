@@ -15,6 +15,20 @@ public class Unit : MonoBehaviour
 
     public NavMeshAgent agent;
 
+    public HealthBar healthBar;
+
+    //[SerializeField] private DecisionMaker decisionMaker;
+    //[SerializeField] private AIAction[] actions;
+
+    //private AIAction currentAction;
+
+    //public IEnumerator PerformAction()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    currentAction = decisionMaker.DecideAction(actions);
+
+        
+    //}
 
 
     // Start is called before the first frame update
