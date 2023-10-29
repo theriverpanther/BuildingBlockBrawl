@@ -915,6 +915,7 @@ MonoBehaviour:
   movementSpeed: 0
   agent: {fileID: 302045322}
   healthBar: {fileID: 471437385}
+  players: []
 --- !u!1 &315742512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,7 +2133,7 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   damage: 0
-  attackRange: 0
+  attackRange: 5
   attackRate: 0
   movementSpeed: 0
   agent: {fileID: 1163833323}
@@ -2512,6 +2513,7 @@ MonoBehaviour:
   movementSpeed: 0
   agent: {fileID: 1475553892}
   healthBar: {fileID: 675777629}
+  players: []
 --- !u!1 &1556881932
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,6 +2743,7 @@ MonoBehaviour:
   movementSpeed: 0
   agent: {fileID: 1700884318}
   healthBar: {fileID: 967115968}
+  players: []
 --- !u!1 &1725538516
 GameObject:
   m_ObjectHideFlags: 0

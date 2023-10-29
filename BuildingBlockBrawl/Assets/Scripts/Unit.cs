@@ -11,8 +11,8 @@ public abstract class Unit : MonoBehaviour
     public int currentHealth;
 
     public int damage;
-    public float attackRange;
-    public float attackRate;
+    [SerializeField] protected float attackRange;
+    [SerializeField] protected float attackRate;
 
     public float movementSpeed;
 
@@ -84,6 +84,19 @@ public abstract class Unit : MonoBehaviour
         if(healthBar.healthBarSprite.fillAmount <= 0)
         {
             gameObject.SetActive(false);
+        }
+    }
+
+    public void MovementSpeedChange(Vector3 targetPos)
+    {
+        if (Vector3.Distance(gameObject.transform.position, targetPos) >= 1.0f)
+        {
+            agent.speed = movementSpeed;
+        }
+        //Stops movement upcoming coming within a certain distance of the target
+        if (Vector3.Distance(gameObject.transform.position, targetPos) <= 2.5f)
+        {
+            agent.speed = 0;
         }
     }
 }
