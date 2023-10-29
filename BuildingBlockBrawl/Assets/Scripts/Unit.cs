@@ -7,14 +7,14 @@ public abstract class Unit : MonoBehaviour
 {
     public string charName;
 
-    public int maxHealth;
+    [SerializeField] protected int maxHealth;
     public int currentHealth;
 
-    public int damage;
+    [SerializeField] protected int damage;
     [SerializeField] protected float attackRange;
     [SerializeField] protected float attackRate;
 
-    public float movementSpeed;
+    [SerializeField] protected float movementSpeed;
 
     public NavMeshAgent agent;
 
@@ -37,11 +37,11 @@ public abstract class Unit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 100;
-        currentHealth = 100;
-        damage = 20;
-        attackRange = 3;
-        attackRate = 2;
+        //maxHealth = 100;
+        currentHealth = maxHealth;
+        //damage = 20;
+        //attackRange = 3;
+        //attackRate = 2;
         movementSpeed = 3.5f;
 
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
@@ -94,7 +94,7 @@ public abstract class Unit : MonoBehaviour
             agent.speed = movementSpeed;
         }
         //Stops movement upcoming coming within a certain distance of the target
-        if (Vector3.Distance(gameObject.transform.position, targetPos) <= 2.5f)
+        if (Vector3.Distance(gameObject.transform.position, targetPos) <= attackRange - 0.5f)
         {
             agent.speed = 0;
         }

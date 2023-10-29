@@ -14,7 +14,7 @@ public class EnemyCharacter : Unit
     void Start()
     {
         maxHealth = 100;
-        currentHealth = 100;
+        currentHealth = maxHealth;
         damage = 10;
         attackRange = 3;
         attackRate = 3;

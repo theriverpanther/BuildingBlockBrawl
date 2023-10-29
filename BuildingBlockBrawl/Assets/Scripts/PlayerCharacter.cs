@@ -14,11 +14,11 @@ public class PlayerCharacter : Unit
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 100;
-        currentHealth = 100;
-        damage = 20;
-        attackRange = 3;
-        attackRate = 2;
+        //maxHealth = 100;
+        currentHealth = maxHealth;
+        //damage = 20;
+        //attackRange = 3;
+        //attackRate = 2;
         movementSpeed = 3.5f;
 
         //Creates a list of all enemies in the scene
