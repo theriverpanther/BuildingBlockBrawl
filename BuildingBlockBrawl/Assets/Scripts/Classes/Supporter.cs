@@ -34,9 +34,9 @@ public class Supporter : Unit
         int mostHealth = int.MinValue;
         foreach (Unit e in enemies)
         {
-            if(e.Damage > mostHealth)
+            if(e.Health > mostHealth)
             {
-                mostHealth = e.Damage;
+                mostHealth = e.Health;
                 bestUnit = e;
             }
         }

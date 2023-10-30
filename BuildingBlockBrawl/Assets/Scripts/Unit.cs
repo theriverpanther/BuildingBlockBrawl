@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
-public abstract class Unit : MonoBehaviour
+public class Unit : MonoBehaviour
 {
     #region Variables
     [Header("Initialization Values")]
@@ -23,11 +23,12 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected float maxAttackRate = 2f;
     [SerializeField] protected float movementSpeed;
 
-    public NavMeshAgent agent;
+    protected NavMeshAgent agent;
     public HealthBar healthBar;
 
-    protected List<Unit> enemies = new List<Unit>();
-    protected int targetIndex = 0;
+    // public for testing, serializing would cause errors due to object removal
+    public List<Unit> enemies = new List<Unit>();
+    [SerializeField] protected int targetIndex = 0;
     #endregion
 
     #region Properties
@@ -78,7 +79,7 @@ public abstract class Unit : MonoBehaviour
         healthBar.SetBasicInfo(tag, charName);
 
         agent = GetComponent<NavMeshAgent>();
-        //Debug.Log("agent assignment");
+        agent.speed = movementSpeed;
 
         targetIndex = SelectTargetIndex();
 
@@ -144,22 +145,45 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     public void Attack(List<Unit> targets)
     {
+        List<Unit> toAttack = new List<Unit>();
         foreach(Unit unit in targets)
         {
             if (Vector3.Distance(transform.position, unit.transform.position) < attackRange)
             {
                 if (unit.Health > 0)
                 {
-                    attackRate -= Time.deltaTime;
-
-                    if (attackRate <= 0)
-                    {
-                        unit.currentHealth -= damage;
-
-                        attackRate = maxAttackRate;
-                    }
+                    toAttack.Add(unit);
                 }
             }
+        }
+
+        if (toAttack.Count > 0)
+        {
+            if(attackRate > 0)
+            {
+                attackRate -= Time.deltaTime;
+            }
+            else
+            {
+                foreach(Unit unit in toAttack)
+                {
+                    Debug.Log(unit.name);
+                    unit.TakeDamage(damage);
+                }
+                attackRate = maxAttackRate;
+            }
+        }
+        else
+        {
+            attackRate = maxAttackRate;
+        }
+    }
+
+    public void TakeDamage(int damageVal)
+    {
+        if(damageVal > 0)
+        {
+            currentHealth -= damage;
         }
     }
 
@@ -173,15 +197,29 @@ public abstract class Unit : MonoBehaviour
 
     public void MovementSpeedChange(Vector3 targetPos)
     {
-        if (Vector3.Distance(gameObject.transform.position, targetPos) >= 1.0f)
-        {
-            agent.speed = movementSpeed;
-        }
+        agent.speed = movementSpeed;
+        float dist = Vector3.Distance(gameObject.transform.position, targetPos);
+        //if (Vector3.Distance(gameObject.transform.position, targetPos) >= 1.0f)
+        //{
+        //    agent.speed = movementSpeed;
+        //}
         //Stops movement upcoming coming within a certain distance of the target
-        if (Vector3.Distance(gameObject.transform.position, targetPos) <= attackRange - 0.5f)
+        if (dist <= attackRange - 0.5f)
+        {
+            agent.speed = movementSpeed / Vector3.Distance(gameObject.transform.position, targetPos);
+        }
+        else if (dist <= attackRange)
         {
             agent.speed = 0;
         }
+        
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Gizmos.color = Color.blue;
+        //if (agent != null) Gizmos.DrawSphere(agent.pathEndPosition, 1f);
+
     }
 
     //public void SetTarget(int index)
