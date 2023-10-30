@@ -7,13 +7,13 @@ public abstract class Unit : MonoBehaviour
 {
     public string charName;
 
+    [Header("Unit Statistics")]
     [SerializeField] protected int maxHealth;
     public int currentHealth;
 
     [SerializeField] protected int damage;
     [SerializeField] protected float attackRange;
     [SerializeField] protected float attackRate;
-
     [SerializeField] protected float movementSpeed;
 
     public NavMeshAgent agent;

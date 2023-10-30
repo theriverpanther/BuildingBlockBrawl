@@ -52,4 +52,12 @@ public class PlayerCharacter : Unit
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
         Death();
     }
+
+    public void SetTarget(int index)
+    {
+        if(index < enemies.Count && index > 0)
+        {
+            randomTarget = index;
+        }
+    }
 }
