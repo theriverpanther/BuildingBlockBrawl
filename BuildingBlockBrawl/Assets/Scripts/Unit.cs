@@ -39,6 +39,8 @@ public class Unit : MonoBehaviour
                 if (value >= 0 && value < enemies.Count)
                 {
                     targetIndex = value;
+                    agent.SetDestination(enemies[targetIndex].transform.position);
+                    MovementSpeedChange(enemies[targetIndex].transform.position);
                 }
             }
     }
@@ -103,7 +105,9 @@ public class Unit : MonoBehaviour
             }
         }
         if (resetTarget) targetIndex = SelectTargetIndex();
-        Behaviors();     
+        Behaviors();
+        MoveToTarget();
+        Attack(enemies);
 
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
         CheckDeath();
@@ -119,21 +123,20 @@ public class Unit : MonoBehaviour
             {
                 enemies.RemoveAt(targetIndex);
                 targetIndex = SelectTargetIndex();
-                agent.SetDestination(enemies[targetIndex].transform.position);
-
             }
-            MovementSpeedChange(enemies[targetIndex].transform.position);
-            Attack(enemies);
-
-
         }
         else if(targetIndex != -1)
         {
             targetIndex = SelectTargetIndex();
-            //Moves to the current target
+        }
+    }
+
+    protected void MoveToTarget()
+    {
+        if(targetIndex >= 0 && targetIndex < enemies.Count)
+        {
             agent.SetDestination(enemies[targetIndex].transform.position);
             MovementSpeedChange(enemies[targetIndex].transform.position);
-            Attack(enemies);
         }
     }
 
@@ -146,7 +149,7 @@ public class Unit : MonoBehaviour
     /// <summary>
     /// Attacks the target unit
     /// </summary>
-    public void Attack(List<Unit> targets)
+    public virtual void Attack(List<Unit> targets)
     {
         List<Unit> toAttack = new List<Unit>();
         foreach(Unit unit in targets)
@@ -168,9 +171,14 @@ public class Unit : MonoBehaviour
             }
             else
             {
-                foreach(Unit unit in toAttack)
+                if (toAttack.Contains(enemies[targetIndex]))
                 {
-                    unit.TakeDamage(damage);
+                    enemies[targetIndex].TakeDamage(damage);
+                }
+                else
+                {
+                    int randIndex = Random.Range(0, toAttack.Count);
+                    toAttack[randIndex].TakeDamage(damage);
                 }
                 attackRate = maxAttackRate;
             }
