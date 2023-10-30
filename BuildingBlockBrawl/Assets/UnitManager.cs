@@ -46,7 +46,9 @@ public class UnitManager : MonoBehaviour
                 }
                 else if(hit.collider.gameObject.tag == "Enemy" && selectedUnit != null)
                 {
+                    Debug.Log(selectedUnit.TargetIndex);
                     selectedUnit.TargetIndex = enemyAgents.IndexOf(hit.collider.gameObject);
+                    Debug.Log(selectedUnit.TargetIndex);
                 }
                 else
                 {

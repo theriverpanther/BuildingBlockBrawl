@@ -120,9 +120,12 @@ public class Unit : MonoBehaviour
                 enemies.RemoveAt(targetIndex);
                 targetIndex = SelectTargetIndex();
                 agent.SetDestination(enemies[targetIndex].transform.position);
-            }
 
-            
+            }
+            MovementSpeedChange(enemies[targetIndex].transform.position);
+            Attack(enemies);
+
+
         }
         else if(targetIndex != -1)
         {
@@ -167,7 +170,6 @@ public class Unit : MonoBehaviour
             {
                 foreach(Unit unit in toAttack)
                 {
-                    Debug.Log(unit.name);
                     unit.TakeDamage(damage);
                 }
                 attackRate = maxAttackRate;
