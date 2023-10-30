@@ -60,4 +60,14 @@ public class PlayerCharacter : Unit
             randomTarget = index;
         }
     }
+
+    public void AddNewEnemy(GameObject newEnemy)
+    {
+        enemies.Add(newEnemy);
+        //Finds a random target to attack (MAY BE REMOVED IN THE FUTURE IF RANDOMNESS IS NOT NECCESSARY)
+        enemyCount = enemies.Count;
+        randomTarget = Random.Range(0, enemyCount);
+
+        
+    }
 }
