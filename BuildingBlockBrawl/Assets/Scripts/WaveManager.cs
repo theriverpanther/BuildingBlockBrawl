@@ -56,7 +56,7 @@ public class WaveManager : MonoBehaviour
                 activatedOpponents.Add(opponent);
                 foreach(GameObject player in players)
                 {
-                    player.GetComponent<PlayerCharacter>().AddNewEnemy(opponent);
+                    player.GetComponent<Unit>().AddNewEnemy(opponent);
                 }
             }
             

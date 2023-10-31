@@ -264,6 +264,13 @@ public class Unit : MonoBehaviour
         
     }
 
+    public void AddNewEnemy(GameObject newEnemy)
+    {
+        enemies.Add(newEnemy.GetComponent<Unit>());
+        targetIndex = SelectTargetIndex();
+
+    }
+
     private void OnDrawGizmos()
     {
         //Gizmos.color = Color.blue;
