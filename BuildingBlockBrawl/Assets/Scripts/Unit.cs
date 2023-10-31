@@ -69,25 +69,33 @@ public class Unit : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        // Get the collection of objects on the opposing teams and add them to a list of the enemies
-        GameObject[] objs = GameObject.FindGameObjectsWithTag(tag == "PlayerCharacter" ? "Enemy" : "PlayerCharacter");
-        foreach (GameObject obj in objs)
-        {
-            enemies.Add(obj.GetComponent<Unit>());
-        }
         currentHealth = maxHealth;
         movementSpeed = 3.5f;
 
         // Get reference to the healthbar and set the values, color, and name above it
         healthBar = transform.GetChild(0).GetComponent<HealthBar>();
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
-        healthBar.SetBasicInfo(tag, charName);
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = movementSpeed;
 
         targetIndex = SelectTargetIndex();
 
+        // Done with helper for the sake of the wave manager
+        Init();
+    }
+
+    public void Init()
+    {
+        enemies.Clear();
+        // Get the collection of objects on the opposing teams and add them to a list of the enemies
+        GameObject[] objs = GameObject.FindGameObjectsWithTag(tag == "PlayerCharacter" ? "Enemy" : "PlayerCharacter");
+        foreach (GameObject obj in objs)
+        {
+            enemies.Add(obj.GetComponent<Unit>());
+        }
+
+        healthBar.SetBasicInfo(tag, charName);
         // Set the material of the primitive to the corresponding color
         gameObject.GetComponent<MeshRenderer>().material = tag == "PlayerCharacter" ? playerMaterial : enemyMaterial;
     }

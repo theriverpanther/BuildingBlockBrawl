@@ -26,6 +26,8 @@ public class WaveManager : MonoBehaviour
     private bool nextWave=false;
     public TextMeshProUGUI waveIndicator;
 
+    public bool NextWave { get { return nextWave; } }
+
     
     // Start is called before the first frame update
     void Start()
@@ -52,6 +54,8 @@ public class WaveManager : MonoBehaviour
             for(int i = 0; i < 3; i++)
             {
                 GameObject opponent = SetOpponents(waves[opponentsCount + i], opponentTransforms[i]);
+                opponent.tag = "Enemy";
+                opponent.GetComponent<Unit>().Init();
                 //activatedOpponents.Add(opponents[waves[wave + i]]);
                 activatedOpponents.Add(opponent);
                 foreach(GameObject player in players)

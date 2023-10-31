@@ -82,6 +82,8 @@ public class UnitManager : MonoBehaviour
                 i--;
             }
         }
+
+        Debug.Log(WaveManager.Instance);
         
         // Lose State
         if(playerAgents.Count == 0)
@@ -91,7 +93,7 @@ public class UnitManager : MonoBehaviour
             menu.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Defeat!";
         }
         // Win State
-        else if(enemyAgents.Count == 0)
+        else if(WaveManager.Instance.opponents.Count == 0 && !WaveManager.Instance.NextWave)
         {
             menu.gameObject.SetActive(true);
             menu.transform.GetChild(0).GetComponent<Image>().color = victoryColor;
