@@ -55,7 +55,7 @@ public class WaveManager : MonoBehaviour
             {
                 GameObject opponent = SetOpponents(waves[opponentsCount + i], opponentTransforms[i]);
                 opponent.tag = "Enemy";
-                opponent.GetComponent<Unit>().Init();
+                //opponent.GetComponent<Unit>().Init();
                 //activatedOpponents.Add(opponents[waves[wave + i]]);
                 activatedOpponents.Add(opponent);
                 foreach(GameObject player in players)
