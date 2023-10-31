@@ -546,9 +546,11 @@ MonoBehaviour:
   damage: 0
   attackRange: 0
   attackRate: 0
+  maxAttackRate: 2
   movementSpeed: 0
-  agent: {fileID: 0}
   healthBar: {fileID: 0}
+  enemies: []
+  targetIndex: 0
 --- !u!1 &8633351505001181386
 GameObject:
   m_ObjectHideFlags: 0

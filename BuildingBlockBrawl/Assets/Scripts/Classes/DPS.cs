@@ -5,7 +5,7 @@ using UnityEngine;
 public class DPS : Unit
 {
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
         maxHealth = 100;
         damage = 20;
@@ -13,7 +13,7 @@ public class DPS : Unit
         attackRate = 2;
         charName = "DPS";
 
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame

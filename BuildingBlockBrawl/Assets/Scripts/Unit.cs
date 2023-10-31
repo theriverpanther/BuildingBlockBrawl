@@ -67,7 +67,7 @@ public class Unit : MonoBehaviour
 
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         currentHealth = maxHealth;
         movementSpeed = 3.5f;
@@ -88,13 +88,6 @@ public class Unit : MonoBehaviour
     public void Init()
     {
         enemies.Clear();
-        // Get the collection of objects on the opposing teams and add them to a list of the enemies
-        GameObject[] objs = GameObject.FindGameObjectsWithTag(tag == "PlayerCharacter" ? "Enemy" : "PlayerCharacter");
-        foreach (GameObject obj in objs)
-        {
-            enemies.Add(obj.GetComponent<Unit>());
-        }
-
         healthBar.SetBasicInfo(tag, charName);
         // Set the material of the primitive to the corresponding color
         gameObject.GetComponent<MeshRenderer>().material = tag == "PlayerCharacter" ? playerMaterial : enemyMaterial;

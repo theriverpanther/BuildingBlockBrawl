@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tank : Unit
 {
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
         maxHealth = 150;
         damage = 15;
@@ -13,7 +13,7 @@ public class Tank : Unit
         attackRate = 2;
         charName = "Tank";
 
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame

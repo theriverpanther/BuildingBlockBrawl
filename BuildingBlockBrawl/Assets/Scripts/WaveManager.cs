@@ -33,6 +33,8 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         activatedOpponents = new List<GameObject>();
+        players.Clear();
+        players.AddRange(GameObject.FindGameObjectsWithTag("PlayerCharacter"));
     }
 
     // Update is called once per frame
@@ -51,15 +53,17 @@ public class WaveManager : MonoBehaviour
         //Spawn new enemies if players clear the current wave
         if (nextWave && waves.Count-opponentsCount >= opponentsPerWave)
         {
-            for(int i = 0; i < 3; i++)
+            for(int i = 0; i < opponentsPerWave; i++)
             {
                 GameObject opponent = SetOpponents(waves[opponentsCount + i], opponentTransforms[i]);
                 opponent.tag = "Enemy";
-                //opponent.GetComponent<Unit>().Init();
+                
+                opponent.GetComponent<Unit>().Init();
                 //activatedOpponents.Add(opponents[waves[wave + i]]);
                 activatedOpponents.Add(opponent);
                 foreach(GameObject player in players)
                 {
+                    opponent.GetComponent<Unit>().AddNewEnemy(player);
                     player.GetComponent<Unit>().AddNewEnemy(opponent);
                 }
             }

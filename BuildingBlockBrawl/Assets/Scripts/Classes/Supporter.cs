@@ -5,7 +5,7 @@ using UnityEngine;
 public class Supporter : Unit
 {
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
         maxHealth = 75;
         damage = 10;
@@ -13,7 +13,7 @@ public class Supporter : Unit
         attackRate = 2;
         charName = "Support";
 
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame
