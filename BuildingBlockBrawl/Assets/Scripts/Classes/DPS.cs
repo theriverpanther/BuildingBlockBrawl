@@ -27,7 +27,10 @@ public class DPS : Unit
         base.Behaviors();
     }
 
-    // DPS will currently evaluate units with the lowest health as the best targets
+    /// <summary>
+    /// Will select a target based on having the least amount of health
+    /// </summary>
+    /// <returns>Index of the target</returns>
     protected override int SelectTargetIndex()
     {
         if (enemies.Count == 0) return -1;

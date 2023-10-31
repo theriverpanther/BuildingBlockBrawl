@@ -27,7 +27,10 @@ public class Tank : Unit
         base.Behaviors();
     }
 
-    // Tank will currently evaluate units with the highest damage as the best targets
+    /// <summary>
+    /// Will select a target based on having the most amount of damage
+    /// </summary>
+    /// <returns>Index of the target</returns>
     protected override int SelectTargetIndex()
     {
         if (enemies.Count == 0) return -1;
