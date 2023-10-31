@@ -97,6 +97,11 @@ public class UnitManager : MonoBehaviour
             menu.transform.GetChild(0).GetComponent<Image>().color = victoryColor;
             menu.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Victory";
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitGame();
+        }
     }
 
     /// <summary>
