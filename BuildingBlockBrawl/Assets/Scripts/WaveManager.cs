@@ -28,7 +28,11 @@ public class WaveManager : MonoBehaviour
 
     public bool NextWave { get { return nextWave; } }
 
-    
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +45,8 @@ public class WaveManager : MonoBehaviour
     void Update()
     {
         //determine if players can move to the mext wave
-        nextWave = true;
+        if (opponentsCount - opponentsPerWave != waves.Count - 1)
+            nextWave = true;
         foreach (GameObject opponent in activatedOpponents)
         {
             if (opponent.activeInHierarchy == true)
@@ -88,5 +93,26 @@ public class WaveManager : MonoBehaviour
         //opponent.tag = "Enemy";
 
         return opponent;
+    }
+
+    //The condition used to check is there any enemy left. True means you win the game
+    public bool WinOrNot()
+    {
+        bool isWin = true;
+
+        foreach (GameObject opponent in activatedOpponents)
+        {
+            if (opponent.activeInHierarchy == true)
+            {
+                isWin = false;
+            }
+        }
+        //int x = opponentsCount, y = waves.Count ;
+        //Debug.Log(x+" - "+ y);
+        
+        if (activatedOpponents.Count != 0 && opponentsCount == waves.Count)
+            return isWin;
+        else
+            return false;
     }
 }
