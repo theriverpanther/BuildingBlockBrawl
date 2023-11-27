@@ -23,6 +23,13 @@ public class TargetingUIText : MonoBehaviour
         //Debug.Log(unit.enemies[unit.TargetIndex].name);
 
         //Updates the text to indicate whoever the unit is currently targeting
-        targetText.text = "(Player) " + unit.name + " is targeting " + unit.enemies[unit.TargetIndex].name;
+        //Debug.Log(unit.name + " " + unit.TargetIndex);
+        if(unit.TargetIndex >= 0)
+        {
+            targetText.text = "(Player) " + unit.name + " is targeting " + unit.enemies[unit.TargetIndex].name;
+        }
+
+
+
     }
 }

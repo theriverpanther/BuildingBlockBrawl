@@ -46,7 +46,7 @@ public class Unit : MonoBehaviour
             }
     }
 
-    public int Health { get { return currentHealth; } }
+    public int Health { get { return currentHealth; } set { currentHealth = value; } }
     public int Damage { get { return damage; } }
     public float AttackRange { get { return attackRange; } }
     public float AttackRate { get { return attackRate; } }
