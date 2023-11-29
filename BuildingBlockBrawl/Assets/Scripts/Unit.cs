@@ -18,6 +18,8 @@ public class Unit : MonoBehaviour
     [SerializeField] protected int currentHealth;
 
     [SerializeField] protected int damage;
+    [SerializeField] protected int maxDamage;
+
     [SerializeField] protected float attackRange;
     [SerializeField] protected float attackRate;
     [SerializeField] protected float maxAttackRate = 2f;
@@ -29,6 +31,8 @@ public class Unit : MonoBehaviour
     // public for testing, serializing would cause errors due to object removal
     public List<Unit> enemies = new List<Unit>();
     [SerializeField] protected int targetIndex = 0;
+
+    protected bool isDebuffed;
     #endregion
 
     #region Properties
@@ -47,9 +51,13 @@ public class Unit : MonoBehaviour
     }
 
     public int Health { get { return currentHealth; } set { currentHealth = value; } }
-    public int Damage { get { return damage; } }
+    public int Damage { get { return damage; } set { damage = value; } }
+    public int MaxDamage {  get { return maxDamage; } }
     public float AttackRange { get { return attackRange; } }
     public float AttackRate { get { return attackRate; } }
+
+
+    public bool IsDebuffed {  get { return isDebuffed; } set { isDebuffed = value; } }
     #endregion
 
     //[SerializeField] private DecisionMaker decisionMaker;
@@ -70,7 +78,11 @@ public class Unit : MonoBehaviour
     protected virtual void Awake()
     {
         currentHealth = maxHealth;
+        maxDamage = damage;
+
         movementSpeed = 3.5f;
+
+        isDebuffed = false;
 
         // Get reference to the healthbar and set the values, color, and name above it
         healthBar = transform.GetChild(0).GetComponent<HealthBar>();
@@ -124,6 +136,17 @@ public class Unit : MonoBehaviour
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
         // Check if the agent is dead
         CheckDeath();
+
+        //If the unit is debuffed, halves their damage output
+        if(isDebuffed)
+        {
+            damage = damage / 2;
+        }
+        //else, their damage is normal
+        else
+        {
+            damage = maxDamage;
+        }
     }
 
     /// <summary>

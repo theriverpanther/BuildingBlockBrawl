@@ -13,6 +13,12 @@ public class Supporter : Unit
     public float healCooldown;
     public bool healOnCooldown;
 
+    //Cooldown for the debuffing ability
+    public float debuffCooldown;
+    public bool debuffOnCooldown;
+    //The amount of time an enemy is debuffed for
+    float debuffTimer;
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -24,6 +30,10 @@ public class Supporter : Unit
 
         healCooldown = 4;
         healOnCooldown = false;
+
+        debuffCooldown = 7;
+        debuffOnCooldown = false;
+        debuffTimer = 5;
 
         base.Awake();
 
@@ -40,17 +50,56 @@ public class Supporter : Unit
     {
         base.Update();
 
-        //If the healing ability is on cooldown, starts the timer
-        if(healOnCooldown)
+        //Healing cooldown
+        //CheckSkillCooldown(healOnCooldown, healCooldown, 4);
+
+        //If the ability is on cooldown, starts the timer
+        if (healOnCooldown)
         {
             healCooldown -= Time.deltaTime;
         }
 
-        //If the timer reaches a certain amount, the healing ability can be used again
-        if(healCooldown <= 0)
+        //If the timer reaches a certain amount, the ability can be used again
+        if (healCooldown <= 0)
         {
             healOnCooldown = false;
             healCooldown = 4;
+        }
+
+        //Debuff cooldown
+        //CheckSkillCooldown(debuffOnCooldown, debuffCooldown, 7);
+
+        if (debuffOnCooldown)
+        {
+            debuffCooldown -= Time.deltaTime;
+        }
+
+        //If the timer reaches a certain amount, the ability can be used again
+        if (debuffCooldown <= 0)
+        {
+            debuffOnCooldown = false;
+            debuffCooldown = 7;
+        }
+
+        //Starts the debuff timer after the debuff ability is used
+        if (debuffOnCooldown == true)
+        {
+            debuffTimer -= Time.deltaTime;
+        }
+        //Gets rid of the debuff on the target once the timer is up
+        if(debuffTimer <= 0)
+        {
+            foreach(Unit unit in enemies)
+            {
+                if(unit.IsDebuffed)
+                {
+                    unit.IsDebuffed = false;
+
+                    Debug.Log(unit.name + " is no longer weakened");
+                }
+            }
+
+            debuffTimer = 5;
         }
     }
     protected override void Behaviors()
@@ -68,6 +117,11 @@ public class Supporter : Unit
                 //Heal them
                 Heal(unit);
             }
+        }
+
+        foreach(Unit enemy in enemies)
+        {
+           Debuff(enemy);
         }
     }
 
@@ -91,6 +145,22 @@ public class Supporter : Unit
         return enemies.IndexOf(bestUnit);
     }
 
+    private void CheckSkillCooldown(bool skillOnCooldown, float skillCooldown, float skillMaxCooldownTime)
+    {
+        //If the ability is on cooldown, starts the timer
+        if (skillOnCooldown)
+        {
+            skillCooldown -= Time.deltaTime;
+        }
+
+        //If the timer reaches a certain amount, the ability can be used again
+        if (skillCooldown <= 0)
+        {
+            skillOnCooldown = false;
+            skillCooldown = skillMaxCooldownTime;
+        }
+    }
+
     /// <summary>
     /// Restore's the target's health by a certain amount
     /// </summary>
@@ -104,5 +174,27 @@ public class Supporter : Unit
             target.Health += 50;
             healOnCooldown = true;
         }
+    }
+
+    /// <summary>
+    /// Lowers the target's damage output
+    /// </summary>
+    /// <param name="target"></param>
+    private void Debuff(Unit target)
+    {
+        if(debuffOnCooldown == false)
+        {
+            target.IsDebuffed = true; 
+            //if(target.IsDebuffed)
+            //{
+            //    target.Damage = target.Damage / 2;
+            //}
+
+
+            Debug.Log(target.name + " is weakened: " + target.MaxDamage + " => " + target.Damage);
+
+            debuffOnCooldown = true;
+        }
+
     }
 }
