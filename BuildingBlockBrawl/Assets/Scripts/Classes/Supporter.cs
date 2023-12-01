@@ -173,6 +173,8 @@ public class Supporter : Unit
             //Heals the target
             target.Health += 50;
             healOnCooldown = true;
+
+            Debug.Log(gameObject.name + " healed " + target.name);
         }
     }
 
@@ -185,13 +187,8 @@ public class Supporter : Unit
         if(debuffOnCooldown == false)
         {
             target.IsDebuffed = true; 
-            //if(target.IsDebuffed)
-            //{
-            //    target.Damage = target.Damage / 2;
-            //}
 
-
-            Debug.Log(target.name + " is weakened: " + target.MaxDamage + " => " + target.Damage);
+            Debug.Log(target.name + " is weakened: ");
 
             debuffOnCooldown = true;
         }

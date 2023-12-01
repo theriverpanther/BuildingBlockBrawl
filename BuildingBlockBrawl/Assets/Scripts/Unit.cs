@@ -138,7 +138,7 @@ public class Unit : MonoBehaviour
         CheckDeath();
 
         //If the unit is debuffed, halves their damage output
-        if(isDebuffed)
+        if(isDebuffed && (damage == maxDamage))
         {
             damage = damage / 2;
         }
