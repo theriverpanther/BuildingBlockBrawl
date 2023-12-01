@@ -20,15 +20,26 @@ public class DPS : Unit
     protected override void Update()
     {
         base.Update();
+
     }
 
     protected override void Behaviors()
     {
         base.Behaviors();
+
+        //If an enemy target's health is low enough, finishes off the target
+        foreach (Unit enemy in enemies)
+        {
+            if(enemy.Health <= enemy.MaxHealth/5)
+            {
+                Instakill(enemy);
+            }
+        }
+      
     }
 
     /// <summary>
-    /// Will select a target based on having the least amount of health
+    /// Will select a target based on having the least amount of health (Supports > DPS > Tanks)
     /// </summary>
     /// <returns>Index of the target</returns>
     protected override int SelectTargetIndex()
@@ -45,5 +56,16 @@ public class DPS : Unit
             }
         }
         return enemies.IndexOf(bestUnit);
+    }
+
+    /// <summary>
+    /// Wipes out the target's remaining health (May or may not be overpowered)
+    /// </summary>
+    /// <param name="target"></param>
+    private void Instakill(Unit target)
+    {
+        Debug.Log(gameObject.name + " finished off " + target.name);
+
+        target.Health = 0;
     }
 }

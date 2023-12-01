@@ -108,7 +108,7 @@ public class Supporter : Unit
             Unit unit = ally.GetComponent<Unit>();
 
             //If their health is below a certain threshold
-            if(unit.Health <= 30)
+            if(unit.Health <= unit.MaxHealth/3)
             {
                 //Heal them
                 Heal(unit);
@@ -123,7 +123,7 @@ public class Supporter : Unit
     }
 
     /// <summary>
-    /// Will select a target based on having the most amount of health
+    /// Will select a target based on having the most amount of health (Tanks > DPS > Supports)
     /// </summary>
     /// <returns>Index of the target</returns>
     protected override int SelectTargetIndex()

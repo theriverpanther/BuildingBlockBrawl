@@ -79,7 +79,7 @@ public class Tank : Unit
     }
 
     /// <summary>
-    /// Will select a target based on having the most amount of damage
+    /// Will select a target based on having the most amount of damage (DPS > Tanks > Supports)
     /// </summary>
     /// <returns>Index of the target</returns>
     protected override int SelectTargetIndex()
