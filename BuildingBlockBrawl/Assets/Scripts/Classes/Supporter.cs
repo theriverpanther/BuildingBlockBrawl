@@ -5,19 +5,17 @@ using UnityEngine;
 
 public class Supporter : Unit
 {
-    //THIS COULD POTENTIALLY BE MOVED INTO THE UNIT PARENT SCRIPT
-    //Array of teammates
-    [SerializeField] private GameObject[] allies;
+
 
     //Cooldown for the healing ability
-    public float healCooldown;
-    public bool healOnCooldown;
+    [SerializeField] private float healCooldown;
+    [SerializeField] private bool healOnCooldown;
 
     //Cooldown for the debuffing ability
-    public float debuffCooldown;
-    public bool debuffOnCooldown;
+    [SerializeField] private float debuffCooldown;
+    [SerializeField] private bool debuffOnCooldown;
     //The amount of time an enemy is debuffed for
-    float debuffTimer;
+    [SerializeField] private float debuffTimer;
 
     // Start is called before the first frame update
     protected override void Awake()
@@ -37,12 +35,6 @@ public class Supporter : Unit
 
         base.Awake();
 
-        //If it is the player's supporter character
-        if(gameObject.tag == "PlayerCharacter")
-        {
-            //Add all player characters into the array
-            allies = GameObject.FindGameObjectsWithTag("PlayerCharacter");
-        }
     }
 
     // Update is called once per frame
@@ -119,6 +111,7 @@ public class Supporter : Unit
             }
         }
 
+        //Currently just debuffs the first enemy target in the list
         foreach(Unit enemy in enemies)
         {
            Debuff(enemy);

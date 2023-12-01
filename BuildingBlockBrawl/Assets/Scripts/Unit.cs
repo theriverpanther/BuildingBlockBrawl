@@ -30,6 +30,10 @@ public class Unit : MonoBehaviour
 
     // public for testing, serializing would cause errors due to object removal
     public List<Unit> enemies = new List<Unit>();
+
+    //Array of teammates
+    public GameObject[] allies;
+
     [SerializeField] protected int targetIndex = 0;
 
     protected bool isDebuffed;
@@ -93,6 +97,14 @@ public class Unit : MonoBehaviour
 
         targetIndex = SelectTargetIndex();
 
+        //If it is the player's character
+        if (gameObject.tag == "PlayerCharacter")
+        {
+            //Add all player characters into the array
+            allies = GameObject.FindGameObjectsWithTag("PlayerCharacter");
+        }
+
+
         // Done with helper for the sake of the wave manager
         Init();
     }
@@ -108,6 +120,13 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        //If gameobject is an enemy
+        if (gameObject.tag == "Enemy")
+        {
+            //Constantly checks for other enemy allies due to them spawning in later
+            allies = GameObject.FindGameObjectsWithTag("Enemy");
+        }
+
         // Flag value to see if the agent needs a new target
         bool resetTarget = false;
         for(int i = 0; i < enemies.Count; i++)
