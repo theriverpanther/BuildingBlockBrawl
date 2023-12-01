@@ -17,6 +17,8 @@ public class Supporter : Unit
     //The amount of time an enemy is debuffed for
     [SerializeField] private float debuffTimer;
 
+    [SerializeField] private int healValue;
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -32,6 +34,8 @@ public class Supporter : Unit
         debuffCooldown = 7;
         debuffOnCooldown = false;
         debuffTimer = 5;
+
+        healValue = 50;
 
         base.Awake();
 
@@ -164,7 +168,7 @@ public class Supporter : Unit
         if(healOnCooldown == false)
         {
             //Heals the target
-            target.Health += 50;
+            target.Health += healValue;
             healOnCooldown = true;
 
             Debug.Log(gameObject.name + " healed " + target.name);

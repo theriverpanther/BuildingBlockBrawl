@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tank : Unit
@@ -32,17 +33,6 @@ public class Tank : Unit
     protected override void Update()
     {
         base.Update();
-
-        //for (int i = 0; i < allies.Length; i++)
-        //{
-        //    Unit tankUnit = allies[i].GetComponent<Unit>();
-
-        //    Unit thisUnit = gameObject.GetComponent<Unit>();
-        //    if (tankUnit == thisUnit)
-        //    {
-        //        tankTargetIndex = i;
-        //    }
-        //}
 
         //If the ability is on cooldown, starts the timer
         if (aggroOnCooldown)
@@ -114,8 +104,14 @@ public class Tank : Unit
 
             foreach(Unit enemy in enemies)
             {
-                //THIS WILL NEED TO BE UPDATED IF THE TANK IS IN A DIFFERENT POSITION
-                enemy.TargetIndex = 2;
+                //Gets the target index of the tank on the opposing team
+                for(int i = 0; i < enemy.enemies.Count; i++)
+                {
+                    if (enemy.enemies[i] is Tank)
+                    {
+                        enemy.TargetIndex = i;
+                    }
+                }
             }
 
             aggroOnCooldown = true;
