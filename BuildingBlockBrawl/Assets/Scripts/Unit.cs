@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour
     #region Variables
     [Header("Initialization Values")]
     public string charName;
-    [SerializeField] Material playerMaterial;
+    [SerializeField] protected Material playerMaterial;
     [SerializeField] Material enemyMaterial;
 
     [Header("Unit Statistics")]

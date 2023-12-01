@@ -13,6 +13,9 @@ public class Tank : Unit
 
     [SerializeField] private int tankTargetIndex;
 
+    //Material for the tank when it is using its aggro ability
+    [SerializeField] private Material aggroStateMaterial;
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -57,6 +60,7 @@ public class Tank : Unit
                 Debug.Log(enemy.name + " is no longer aggroed");
             }
             aggroTimer = 7;
+            gameObject.GetComponent<MeshRenderer>().material = playerMaterial;
         }
 
         //Starts the timer after using the ability
@@ -64,6 +68,7 @@ public class Tank : Unit
         {
             aggroTimer -= Time.deltaTime;
         }
+
     }
 
     protected override void Behaviors()
@@ -109,6 +114,7 @@ public class Tank : Unit
                 {
                     if (enemy.enemies[i] is Tank)
                     {
+                        gameObject.GetComponent<MeshRenderer>().material = aggroStateMaterial;
                         enemy.TargetIndex = i;
                     }
                 }
