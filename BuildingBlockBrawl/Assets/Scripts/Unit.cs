@@ -148,10 +148,6 @@ public class Unit : MonoBehaviour
         if (resetTarget) targetIndex = SelectTargetIndex();
         // Run the behavior tree
         Behaviors();
-        // Move to the target
-        MoveToTarget();
-        // Attack whoever is in range if possible
-        Attack(enemies);
         // Update the healthbar
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
         // Check if the agent is dead
@@ -190,6 +186,11 @@ public class Unit : MonoBehaviour
         {
             targetIndex = SelectTargetIndex();
         }
+
+        // Move to the target
+        MoveToTarget();
+        // Attack whoever is in range if possible
+        Attack(enemies);
     }
 
     /// <summary>
