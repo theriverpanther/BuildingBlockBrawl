@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour
     public string charName;
     [SerializeField] protected Material playerMaterial;
     [SerializeField] Material enemyMaterial;
+    protected Vector3 spawnPos;
 
     [Header("Unit Statistics")]
     [SerializeField] protected int maxHealth;
@@ -84,6 +85,7 @@ public class Unit : MonoBehaviour
     {
         currentHealth = maxHealth;
         maxDamage = damage;
+        spawnPos = transform.position;
 
         movementSpeed = 3.5f;
 
@@ -187,8 +189,10 @@ public class Unit : MonoBehaviour
             targetIndex = SelectTargetIndex();
         }
 
-        // Move to the target
-        MoveToTarget();
+        // If the unit is healthy, move towards the target, otherwise hide from the enemies
+        if (currentHealth / (float)maxHealth > 0.25f) MoveToTarget();
+        else Hide();
+
         // Attack whoever is in range if possible
         Attack(enemies);
     }
@@ -203,6 +207,34 @@ public class Unit : MonoBehaviour
         {
             agent.SetDestination(enemies[targetIndex].transform.position);
             MovementSpeedChange(enemies[targetIndex].transform.position);
+        }
+    }
+
+    /// <summary>
+    /// Flee away from combat
+    /// </summary>
+    protected void Hide()
+    {
+        // If the unit is close to some enemies, go to where they had spawned
+        if (GetClosestEnemy() <= 5)
+        {
+            agent.SetDestination(spawnPos);
+            MovementSpeedChange(spawnPos); 
+        }
+
+        // If they are far away but still need to hide (like in the case of a supporter)
+        // Turn away from the enemies and go towards that direction
+        else
+        {
+            Vector3 sharedDir = Vector3.zero;
+            foreach(Unit e in enemies)
+            {
+                sharedDir += e.transform.forward;
+            }
+            sharedDir = sharedDir.normalized;
+            sharedDir = new Vector3(sharedDir.y, -sharedDir.x, sharedDir.z);
+            agent.SetDestination(transform.position + sharedDir * 5);
+            MovementSpeedChange(transform.position + sharedDir * 5);
         }
     }
 
@@ -314,6 +346,18 @@ public class Unit : MonoBehaviour
         enemies.Add(newEnemy.GetComponent<Unit>());
         targetIndex = SelectTargetIndex();
 
+    }
+
+    protected float GetClosestEnemy()
+    {
+        float closestEnemy = float.MaxValue;
+        float distance = 0f;
+        foreach (Unit enemy in enemies)
+        {
+            distance = Vector3.Distance(enemy.transform.position, transform.position);
+            if (distance < closestEnemy) closestEnemy = distance;
+        }
+        return closestEnemy;
     }
 
     private void OnDrawGizmos()

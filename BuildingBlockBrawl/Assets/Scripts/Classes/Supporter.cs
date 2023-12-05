@@ -102,24 +102,17 @@ public class Supporter : Unit
     {
         base.Behaviors();
 
-        //For each ally unit
-        foreach(GameObject ally in allies)
+        // If there are enemies too close, try and back away
+        if(GetClosestEnemy() <= attackRange / 3)
         {
-            Unit unit = ally.GetComponent<Unit>();
-
-            //If their health is below a certain threshold
-            if(unit.Health <= unit.MaxHealth/3)
-            {
-                //Heal them
-                Heal(unit);
-            }
+            agent.SetDestination(transform.position + -5 * transform.forward);
+            MovementSpeedChange(transform.position + -5 * transform.forward);
         }
 
-        //Currently just debuffs the first enemy target in the list
-        foreach(Unit enemy in enemies)
-        {
-           Debuff(enemy);
-        }
+        if (Health <= MaxHealth / 5) Heal(this);
+        else HealAllies();
+
+        DebuffEnemies();
     }
 
     /// <summary>
@@ -176,6 +169,25 @@ public class Supporter : Unit
     }
 
     /// <summary>
+    /// Restores every allies health by a calculated amount
+    /// </summary>
+    private void HealAllies()
+    {
+        //For each ally unit
+        foreach (GameObject ally in allies)
+        {
+            Unit unit = ally.GetComponent<Unit>();
+
+            //If their health is below a certain threshold
+            if (unit.Health <= unit.MaxHealth / 3)
+            {
+                //Heal them
+                Heal(unit);
+            }
+        }
+    }
+
+    /// <summary>
     /// Lowers the target's damage output
     /// </summary>
     /// <param name="target"></param>
@@ -191,4 +203,18 @@ public class Supporter : Unit
         }
 
     }
+
+    /// <summary>
+    /// Lowers every enemy's damage output
+    /// </summary>
+    private void DebuffEnemies()
+    {
+        //Currently just debuffs the first enemy target in the list
+        foreach (Unit enemy in enemies)
+        {
+            Debuff(enemy);
+        }
+    }
+
+
 }

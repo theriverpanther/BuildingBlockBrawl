@@ -76,6 +76,20 @@ public class Tank : Unit
         base.Behaviors();
 
         Aggro();
+
+        // Pull enemies if they are being drawn
+        // Ideally moves them out of range from other units
+        if(aggroOnCooldown)
+        {
+            agent.SetDestination(enemies[targetIndex].transform.position + transform.forward * 2);
+            MovementSpeedChange(enemies[targetIndex].transform.position + transform.forward * 2);
+        }
+        else if(GetClosestEnemy() <= attackRange)
+        {
+            agent.SetDestination(transform.position);
+            MovementSpeedChange(transform.position);
+        }
+        
     }
 
     /// <summary>

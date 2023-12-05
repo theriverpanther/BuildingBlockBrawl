@@ -27,15 +27,9 @@ public class DPS : Unit
     {
         base.Behaviors();
 
-        //If an enemy target's health is low enough, finishes off the target
-        foreach (Unit enemy in enemies)
-        {
-            if(enemy.Health <= enemy.MaxHealth/5)
-            {
-                Instakill(enemy);
-            }
-        }
-      
+        CheckInstakill();
+        
+
     }
 
     /// <summary>
@@ -67,5 +61,20 @@ public class DPS : Unit
         Debug.Log(gameObject.name + " finished off " + target.name);
 
         target.Health = 0;
+    }
+
+    /// <summary>
+    /// Checks through every enemy to see if they can reduce their remaining health
+    /// </summary>
+    private void CheckInstakill()
+    {
+        //If an enemy target's health is low enough, finishes off the target
+        foreach (Unit enemy in enemies)
+        {
+            if (enemy.Health <= enemy.MaxHealth / 5)
+            {
+                Instakill(enemy);
+            }
+        }
     }
 }
