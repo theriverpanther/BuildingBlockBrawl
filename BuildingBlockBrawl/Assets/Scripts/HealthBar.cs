@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
@@ -33,6 +34,12 @@ public class HealthBar : MonoBehaviour
         //Makes the health bar always face the camera
         transform.rotation = Quaternion.LookRotation(transform.position - cam.transform.position);
         healthBarSprite.fillAmount = Mathf.MoveTowards(healthBarSprite.fillAmount, target, reduceSpeed * Time.deltaTime);
+    }
+    
+    public void SetBasicInfo(string tag, string unitName)
+    {
+        transform.GetChild(0).GetChild(0).GetComponent<Image>().color = tag == "PlayerCharacter" ? Color.green : Color.red;
+        transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = unitName;
     }
 
 }
