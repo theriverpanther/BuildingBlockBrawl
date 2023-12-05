@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7220825673644448363}
   - component: {fileID: 7086747645394401393}
   - component: {fileID: 5620715471205633287}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2076349337627476279}
   - component: {fileID: 4390351855785615828}
   - component: {fileID: 8297729199609391796}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 4421435646872787523}
   - component: {fileID: 4725461880494074144}
   - component: {fileID: 2347305422153712776}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Healthbar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,6 +438,7 @@ MonoBehaviour:
   debuffCooldown: 0
   debuffOnCooldown: 0
   debuffTimer: 0
+  healValue: 0
 --- !u!1 &3818041935628002622
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +450,7 @@ GameObject:
   - component: {fileID: 8298078864828087122}
   - component: {fileID: 8726821928527778019}
   - component: {fileID: 8444139155948103478}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +586,7 @@ GameObject:
   - component: {fileID: 8458699403828262077}
   - component: {fileID: 8264637478457380210}
   - component: {fileID: 7432227415966669349}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SelectIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,6 +761,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wand_Epic
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260819330917749670, guid: 3b4b27421c2a6de4f88b36cc36531976,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

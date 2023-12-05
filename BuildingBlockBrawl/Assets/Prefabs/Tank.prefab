@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3865965620832874881}
   - component: {fileID: 700671420462100903}
   - component: {fileID: 5277882227814205213}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 4822990220211100337}
   - component: {fileID: 661565334385392295}
   - component: {fileID: 2315514279087492832}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 4721980420644421572}
   - component: {fileID: 3187238182573859646}
   - component: {fileID: 8258279238136377879}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SelectIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 7523068011934208383}
   - component: {fileID: 6332725981190635600}
   - component: {fileID: 4406711799165706975}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,6 +558,7 @@ MonoBehaviour:
   aggroOnCooldown: 0
   aggroTimer: 0
   tankTargetIndex: 0
+  aggroStateMaterial: {fileID: 0}
 --- !u!1 &8633351505001181386
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +572,7 @@ GameObject:
   - component: {fileID: 5720393085147030270}
   - component: {fileID: 7642271138199823559}
   - component: {fileID: 373323604603360280}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Healthbar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,6 +690,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shield_Epic
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626687889730050069, guid: f1a69e37edef17743840974cfc82a6ce,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2150742226693145263, guid: f1a69e37edef17743840974cfc82a6ce,
         type: 3}
